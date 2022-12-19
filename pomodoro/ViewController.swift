@@ -24,6 +24,8 @@ class ViewController: UIViewController {
     
     var duration = 60
     var timerStatus: TimerStarus = .end
+    var timer: DispatchSourceTimer?
+    var currentSecond = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +40,23 @@ class ViewController: UIViewController {
     func configureToggleButton() {
         self.toggleButton.setTitle("시작", for: .normal)
         self.toggleButton.setTitle("일시정지", for: .selected)
+    }
+    
+    func startTimer() {
+        if self.timer == nil {
+            self.timer = DispatchSource.makeTimerSource(flags: [], queue: .main)
+            self.timer?.schedule(deadline: .now(), repeating: 1)
+            self.timer?.setEventHandler(handler: { [weak self] in
+                self?.currentSecond -= 1
+                debugPrint(self?.currentSecond)
+                
+                if self?.currentSecond ?? 0 <= 0 {
+                    
+                }
+            })
+            self.timer?.resume()
+        }
+        
     }
 
 
@@ -60,11 +79,13 @@ class ViewController: UIViewController {
 //        debugPrint(self.duration)
         switch self.timerStatus {
         case .end:
+            self.currentSecond = self.duration
             self.timerStatus = .start
             self.setTimerInfoViewVisbel(isHidden: false)
             self.datePicker.isHidden = true
             self.toggleButton.isSelected = true
             self.cancelButton.isEnabled = true
+            
         case .start:
             self.timerStatus = .pause
             self.toggleButton.isSelected = false

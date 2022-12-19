@@ -22,7 +22,7 @@
                                     <constraint firstAttribute="height" constant="100" id="i74-c2-Bc4"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ND-ud-iqW">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ND-ud-iqW">
                                 <rect key="frame" x="24" y="251" width="342" height="60"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
                                 <nil key="textColor"/>
@@ -31,8 +31,11 @@
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ws0-wU-fSr">
                                 <rect key="frame" x="48" y="341" width="294" height="4"/>
                             </progressView>
-                            <datePicker hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" style="wheels" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZh-Ty-Syx">
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" style="wheels" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZh-Ty-Syx">
                                 <rect key="frame" x="0.0" y="201" width="390" height="216"/>
+                                <connections>
+                                    <action selector="tapToggleButton:" destination="BYZ-38-t0r" eventType="valueChanged" id="gln-FQ-mrv"/>
+                                </connections>
                             </datePicker>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="9dH-B9-haV">
                                 <rect key="frame" x="24" y="441" width="342" height="34.333333333333314"/>
@@ -41,6 +44,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="131" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="취소"/>
+                                        <connections>
+                                            <action selector="tapCancelButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Sb7-Eh-3fg"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QR4-xb-sc0">
                                         <rect key="frame" x="211" y="0.0" width="131" height="34.333333333333336"/>
@@ -70,6 +76,13 @@
                             <constraint firstItem="4bu-9V-rJ4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="24" id="vIR-Jv-bZ8"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="GTu-pw-Jhw" id="GxH-Bd-jfM"/>
+                        <outlet property="datePicker" destination="fZh-Ty-Syx" id="8g3-oC-pFV"/>
+                        <outlet property="progressView" destination="Ws0-wU-fSr" id="JEt-FO-2h5"/>
+                        <outlet property="timerLabel" destination="2ND-ud-iqW" id="flW-kk-H8x"/>
+                        <outlet property="toggleButton" destination="QR4-xb-sc0" id="AgB-a7-CO6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 enum TimerStarus {
     case start
@@ -47,11 +48,18 @@ class ViewController: UIViewController {
             self.timer = DispatchSource.makeTimerSource(flags: [], queue: .main)
             self.timer?.schedule(deadline: .now(), repeating: 1)
             self.timer?.setEventHandler(handler: { [weak self] in
-                self?.currentSecond -= 1
-                debugPrint(self?.currentSecond)
-                
-                if self?.currentSecond ?? 0 <= 0 {
-                    self?.stopTimer()
+                guard let self = self else { return }
+                self.currentSecond -= 1
+                let hour = self.currentSecond / 3600
+                let minutes = (self.currentSecond % 3600) / 60
+                let seconds = (self.currentSecond % 3600) % 60
+                self.timerLabel.text = String(format: "%02d:%02d:%02d:", hour, minutes, seconds)
+                self.progressView.progress = Float(self.currentSecond) / Float(self.duration)
+                debugPrint(self.progressView.progress)
+//                debugPrint(self.currentSecond)
+                if self.currentSecond <= 0 {
+                    self.stopTimer()
+                    AudioServicesPlaySystemSound(1005)
                 }
             })
             self.timer?.resume()
@@ -62,9 +70,13 @@ class ViewController: UIViewController {
         if self.timerStatus == .pause {
             self.timer?.resume()
         }
+        self.timerStatus = .end
         self.cancelButton.isEnabled = false
-        self.setTimerInfoViewVisbel(isHidden: true)
-        self.datePicker.isHidden = false
+        UIView.animate(withDuration: 0.5, animations: {
+            self.timerLabel.alpha = 0
+            self.progressView.alpha = 0
+            self.datePicker.alpha = 1
+        })
         self.toggleButton.isSelected = false
         self.timer?.cancel()
         self.timer = nil
@@ -90,8 +102,13 @@ class ViewController: UIViewController {
         case .end:
             self.currentSecond = self.duration
             self.timerStatus = .start
-            self.setTimerInfoViewVisbel(isHidden: false)
-            self.datePicker.isHidden = true
+            UIView.animate(withDuration: 0.5, animations: {
+                            self.timerLabel.alpha = 1
+                            self.progressView.alpha = 1
+                            self.datePicker.alpha = 0
+                        })
+//            self.setTimerInfoViewVisbel(isHidden: false)
+//            self.datePicker.isHidden = true
             self.toggleButton.isSelected = true
             self.cancelButton.isEnabled = true
             self.startTimer()

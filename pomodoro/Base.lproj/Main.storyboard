@@ -33,9 +33,6 @@
                             </progressView>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="1" style="wheels" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fZh-Ty-Syx">
                                 <rect key="frame" x="0.0" y="201" width="390" height="216"/>
-                                <connections>
-                                    <action selector="tapToggleButton:" destination="BYZ-38-t0r" eventType="valueChanged" id="gln-FQ-mrv"/>
-                                </connections>
                             </datePicker>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="80" translatesAutoresizingMaskIntoConstraints="NO" id="9dH-B9-haV">
                                 <rect key="frame" x="24" y="441" width="342" height="34.333333333333314"/>
@@ -52,6 +49,9 @@
                                         <rect key="frame" x="211" y="0.0" width="131" height="34.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="시작"/>
+                                        <connections>
+                                            <action selector="tapToggleButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tmc-l5-sqO"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -81,7 +81,7 @@
                         <outlet property="datePicker" destination="fZh-Ty-Syx" id="8g3-oC-pFV"/>
                         <outlet property="progressView" destination="Ws0-wU-fSr" id="JEt-FO-2h5"/>
                         <outlet property="timerLabel" destination="2ND-ud-iqW" id="flW-kk-H8x"/>
-                        <outlet property="toggleButton" destination="QR4-xb-sc0" id="AgB-a7-CO6"/>
+                        <outlet property="toggleButton" destination="QR4-xb-sc0" id="75I-qz-6ps"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

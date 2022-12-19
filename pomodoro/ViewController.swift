@@ -53,7 +53,7 @@ class ViewController: UIViewController {
                 let hour = self.currentSecond / 3600
                 let minutes = (self.currentSecond % 3600) / 60
                 let seconds = (self.currentSecond % 3600) % 60
-                self.timerLabel.text = String(format: "%02d:%02d:%02d:", hour, minutes, seconds)
+                self.timerLabel.text = String(format: "%02d:%02d:%02d", hour, minutes, seconds)
                 self.progressView.progress = Float(self.currentSecond) / Float(self.duration)
                 debugPrint(self.progressView.progress)
 //                debugPrint(self.currentSecond)

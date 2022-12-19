@@ -51,12 +51,23 @@ class ViewController: UIViewController {
                 debugPrint(self?.currentSecond)
                 
                 if self?.currentSecond ?? 0 <= 0 {
-                    
+                    self?.stopTimer()
                 }
             })
             self.timer?.resume()
         }
-        
+    }
+    
+    func stopTimer() {
+        if self.timerStatus == .pause {
+            self.timer?.resume()
+        }
+        self.cancelButton.isEnabled = false
+        self.setTimerInfoViewVisbel(isHidden: true)
+        self.datePicker.isHidden = false
+        self.toggleButton.isSelected = false
+        self.timer?.cancel()
+        self.timer = nil
     }
 
 
@@ -64,10 +75,8 @@ class ViewController: UIViewController {
         switch self.timerStatus {
         case .start, .pause:
             self.timerStatus = .end
-            self.cancelButton.isEnabled = false
-            self.setTimerInfoViewVisbel(isHidden: true)
-            self.datePicker.isHidden = false
-            self.toggleButton.isSelected = false
+          
+            self.stopTimer()
             
         default:
             break
@@ -85,14 +94,17 @@ class ViewController: UIViewController {
             self.datePicker.isHidden = true
             self.toggleButton.isSelected = true
             self.cancelButton.isEnabled = true
+            self.startTimer()
             
         case .start:
             self.timerStatus = .pause
             self.toggleButton.isSelected = false
+            self.timer?.suspend()
             
         case .pause:
             self.timerStatus = .start
             self.toggleButton.isSelected = true
+            self.timer?.resume()
             
         }
     }
